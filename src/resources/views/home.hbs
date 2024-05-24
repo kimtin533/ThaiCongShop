@@ -1,0 +1,337 @@
+<div class="app__container">
+    <div class="grid wide">
+        <div class="row app__content">
+            <div class="col l-2 m-0 c-0">
+                <nav class="category">
+                    <h3 class="category__heading">Danh mục</h3>
+                    <ul class="category-list">
+                        {{#each categories}}
+                        <li class="category-item ">
+                            <a href="" class="category-item__link">{{this.name}}</a>
+                        </li>
+                        {{/each}}
+                    </ul>
+                </nav>
+            </div>
+            <div class="col l-10 m-12 c-12">
+                <div class="home-filter hide-on-mobile-tablet">
+                    <span class="home-filter__lable">Sắp xếp theo</span>
+                    <button class="btn home-filter__btn ">Phổ biến</button>
+                    <button class="btn home-filter__btn btn--primary">Mới nhất</button>
+                    <button class="btn home-filter__btn ">Bán chạy</button>
+                    <div class="select-input">
+                        <span class="select-input__lable">Giá</span>
+                        <i class=" fa-solid fa-chevron-down"></i>
+                        <ul class="select-input__list">
+                            <li class="select-input__item"><a class="select-input__link" href="">Giá: thấp đến cao</a>
+                            </li>
+                            <li class="select-input__item"><a class="select-input__link" href="">Giá: cao đến thấp</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="home-filter__page">
+                        <span class="home-filter__page-num">
+                            <span class="home-filter__page-current">1</span>/4
+                        </span>
+                        <div class="home-filter__page-control">
+                            <a href="" class="home-filter__page-btn home-filter__page-btn--disabled">
+                                <i class="home-filter__page-icon fa-solid fa-chevron-left"></i>
+                            </a>
+                            <a href="" class="home-filter__page-btn">
+                                <i class="home-filter__page-icon fa-solid fa-chevron-right"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="home-product">
+                    <div class="row">
+                        {{#each products}}
+                        <div class="col l-2-4 m-4 c-6">
+                            <a class="home-product-item" href="/product/{{this.slug}}">
+                                <div class="home-product-item__img"
+                                    style="background-image: url(/uploads/{{this.image}});">
+                                </div>
+                                <h4 class="home-product-item__name">{{this.name}}</h4>
+                                <div class="home-product-item__price">
+                                    <span class="home-product-item__price-current formattedPrice">{{this.price}}đ</span>
+                                </div>
+                                <div class="home-product-item__action">
+                                    <span class="home-product-item__like home-product-item__like--liked">
+                                        <i class="home-product-item__like-empty far fa-heart"></i>
+                                        <i class="home-product-item__like-fill fas fa-heart"></i>
+                                    </span>
+                                    <span class="home-product-item__like-lable">Yêu thích</span>
+                                </div>
+                            </a>
+                        </div>
+                        {{/each}}
+                    </div>
+                </div>
+                {{!-- <ul class="pagination home-product__pagination">
+                    <li class="pagination-item">
+                        <a href="" class="pagination-item_link">
+                            <i class="pagination-item-icon fas fa-angle-left"></i>
+                        </a>
+                    </li>
+                    <li class="pagination-item">
+                        <a href="" class="pagination-item_link">
+                            1
+                        </a>
+                    </li>
+                    <li class="pagination-item">
+                        <a href="" class="pagination-item_link">
+                            2
+                        </a>
+                    </li>
+                    <li class="pagination-item">
+                        <a href="" class="pagination-item_link">
+                            3
+                        </a>
+                    </li>
+                    <li class="pagination-item">
+                        <a href="" class="pagination-item_link">
+                            4
+                        </a>
+                    </li>
+                    <li class="pagination-item">
+                        <a href="" class="pagination-item_link">
+                            5
+                        </a>
+                    </li>
+                    <li class="pagination-item">
+                        <a href="" class="pagination-item_link">
+                            ...
+                        </a>
+                    </li>
+                    <li class="pagination-item">
+                        <a href="" class="pagination-item_link">
+                            14
+                        </a>
+                    </li>
+                    <li class="pagination-item">
+                        <a href="" class="pagination-item_link">
+                            <i class="pagination-item-icon fas fa-angle-right"></i>
+                        </a>
+                    </li>
+                </ul> --}}
+
+                <ul class="pagination home-product__pagination">
+                    <li class="pagination-item">
+                        <a href="?page={{sum currentPage -1}}{{#if search}}&search={{search}}{{/if}}" class="pagination-item_link">
+                            <i class="pagination-item-icon fas fa-angle-left"></i>
+                        </a>
+                    </li>
+
+                    {{#if totalPages}}
+                    
+                    <li class="pagination-item">
+                        <a href="?page={{this}}{{#if search}}&search={{search}}{{/if}}" class="pagination-item_link">
+                            {{currentPage}}
+                        </a>
+                    </li>
+                   
+                    {{/if}}
+
+                    <li class="pagination-item">
+                        <a href="?page={{sum currentPage 1}}{{#if search}}&search={{search}}{{/if}}"
+                            class="pagination-item_link">
+                            <i class="pagination-item-icon fas fa-angle-right"></i>
+                        </a>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" style="display: none;">
+    <div class="modal__overlay"></div>
+
+    <div class="modal__body">
+
+        <div class="auth-form auth-form__register">
+            <div class="auth-from__container">
+                <form id="signup" action="/signup" method="post">
+                    <div class="auth-form__header">
+                        <h3 class="auth-form__heading">Đăng ký</h3>
+                        <span class="auth-form__switch-btn">Đăng nhập</span>
+                    </div>
+                    <div class="auth-form__form">
+                        <div class="auth-form__group">
+                            <input class="auth-form__input" id="display_name_signup" name="display_name"
+                                placeholder="Tên hiển thị của bạn" type="text">
+                        </div>
+                        <div class="auth-form__group">
+                            <input class="auth-form__input" id="username_signup" name="username"
+                                placeholder="Tên đăng nhập của bạn" type="text">
+                        </div>
+                        <div class="auth-form__group">
+                            <input class="auth-form__input" id="password_signup" name="password" placeholder="Mật khẩu"
+                                type="password">
+                        </div>
+                        <div class="auth-form__group">
+                            <input class="auth-form__input" id="confirm_password" name="confirm_password"
+                                placeholder="Nhập lại mật khẩu" type="password">
+                        </div>
+                    </div>
+                    <div class="auth-form__controls">
+                        <button class="btn auth-form__controls-back btn--normal">TRỞ LẠI</button>
+                        <button class="btn btn--primary">ĐĂNG KÝ</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+        <div class="auth-form auth-form__login">
+            <div class="auth-from__container">
+                <form id="login" action="/login" method="post">
+                    <div class="auth-form__header">
+                        <h3 class="auth-form__heading">Đăng nhập</h3>
+                        <span class="auth-form__switch-btn">Đăng ký</span>
+                    </div>
+                    <div class="auth-form__form">
+                        <div class="auth-form__group">
+                            <input class="auth-form__input" id="username_login" name="username"
+                                placeholder="Tên đăng nhập của bạn" type="text">
+                        </div>
+                        <div class="auth-form__group">
+                            <input class="auth-form__input" id="password_login" name="password"
+                                placeholder="Mật khẩu của bạn" type="password">
+                        </div>
+                    </div>
+                    <div class="auth-form__controls">
+                        <button class="btn auth-form__controls-back btn--normal">TRỞ LẠI</button>
+                        <button class="btn btn--primary">ĐĂNG NHẬP</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        $(document).ready(function () {
+            // Biến để kiểm soát việc gửi form đăng ký
+            var isSignupFormSubmitting = false;
+
+            // Biến để kiểm soát việc gửi form đăng nhập
+            var isLoginFormSubmitting = false;
+
+            // Sự kiện submit cho form đăng ký
+            $('form[id="signup"]').submit(function (event) {
+                event.preventDefault();
+                if (isSignupFormSubmitting) {
+                    return;
+                }
+
+                var displayName = $('#display_name_signup').val();
+                var username = $('#username_signup').val();
+                var password = $('#password_signup').val();
+                var confirmPassword = $('#confirm_password').val();
+
+                var usernameRegex = /^[a-zA-Z0-9]+$/;
+                var passwordRegex = /^[a-zA-Z0-9]+$/;
+
+                if (!usernameRegex.test(username)) {
+                    alert('Tên đăng nhập chỉ được chứa chữ cái và số, và không có khoảng trắng.');
+                    return;
+                }
+                if (!passwordRegex.test(password)) {
+                    alert('Mật khẩu chỉ được chứa chữ cái và số, và không có khoảng trắng.');
+                    return;
+                }
+
+                if (!displayName || !displayName.trim()) {
+                    alert('Vui lòng nhập tên hiển thị của bạn.');
+                    return;
+                }
+                if (!username || !username.trim()) {
+                    alert('Vui lòng nhập tên đăng nhập của bạn.');
+                    return;
+                }
+                if (!password) {
+                    alert('Vui lòng nhập mật khẩu.');
+                    return;
+                }
+                if (password !== confirmPassword) {
+                    alert('Mật khẩu không khớp.');
+                    return;
+                }
+
+                // Đánh dấu là đang gửi form đăng ký
+                isSignupFormSubmitting = true;
+
+                // Gửi form đăng ký
+                $(this).off('submit'); // Tắt sự kiện "submit" để tránh việc gửi form nhiều lần
+                this.submit();
+            });
+
+            // Sự kiện submit cho form đăng nhập
+            $('form[id="login"]').submit(function (event) {
+                event.preventDefault();
+                if (isLoginFormSubmitting) {
+                    return;
+                }
+
+                var username = $('#username_login').val();
+                var password = $('#password_login').val();
+
+                var usernameRegex = /^[a-zA-Z0-9]+$/;
+                var passwordRegex = /^[a-zA-Z0-9]+$/;
+
+                if (!usernameRegex.test(username)) {
+                    alert('Tên đăng nhập chỉ được chứa chữ cái và số, và không có khoảng trắng.');
+                    return;
+                }
+                if (!passwordRegex.test(password)) {
+                    alert('Mật khẩu chỉ được chứa chữ cái và số, và không có khoảng trắng.');
+                    return;
+                }
+
+                if (!username || !username.trim()) {
+                    alert('Vui lòng nhập tên đăng nhập của bạn.');
+                    return;
+                }
+                if (!password) {
+                    alert('Vui lòng nhập mật khẩu.');
+                    return;
+                }
+
+                // Đánh dấu là đang gửi form đăng nhập
+                isLoginFormSubmitting = true;
+
+                // Gửi form đăng nhập
+                $(this).off('submit'); // Tắt sự kiện "submit" để tránh việc gửi form nhiều lần
+                this.submit();
+            });
+        });
+
+
+        $(document).ready(function () {
+            // Ẩn modal khi trang được tải
+            $(".modal").hide();
+
+            // Hiển thị modal và form đăng nhập khi click vào li có id là "log"
+            $("#log").click(function () {
+                $(".modal").show(); // Hiển thị modal
+                $(".auth-form__register").hide(); // Ẩn form đăng ký
+                $(".auth-form__login").show(); // Hiển thị form đăng nhập
+            });
+
+            // Chuyển đổi giữa form đăng nhập và form đăng ký khi click vào class auth-form__switch-btn
+            $(".auth-form__switch-btn").click(function () {
+                $(".auth-form").toggle(); // Chuyển đổi giữa hai form
+            });
+
+            // Ẩn modal khi click vào overlay hoặc button "TRỞ LẠI"
+            $(".modal__overlay, .auth-form__controls-back").click(function () {
+                $(".modal").hide(); // Ẩn modal
+                // Xóa nội dung của form đăng nhập và đăng ký
+                $(".auth-form__input").val(""); // Xóa giá trị trong input
+            });
+        });
+
+    });
+</script>

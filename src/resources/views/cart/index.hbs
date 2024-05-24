@@ -1,0 +1,283 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+<style>
+    #cart {
+        background-color: white;
+        padding-top: 1px;
+        margin: 120px;
+        min-height: 300px;
+        display: none;
+    }
+
+    .buyall-btn {
+        position: absolute;
+        bottom: -40px;
+        right: 30px;
+        background-color: crimson;
+        color: white;
+        font-size: 16px;
+        font-weight: bold;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+
+    }
+
+    .cart__item--about-pay-btn {
+        display: none;
+    }
+
+    .cart-wrap {
+        position: relative;
+        width: 1000px;
+        margin: auto;
+    }
+
+    .cart--header {
+        text-align: center;
+        margin: 30px 0;
+    }
+
+    /* .cart__list {
+    } */
+    .cart__item {
+        position: relative;
+        display: flex;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+        padding: 20px 10px;
+    }
+
+    .cart__close {
+        position: absolute;
+        top: 67%;
+        transform: translateX(-50%);
+        left: 27%;
+        cursor: pointer;
+    }
+
+    .cart__close:hover {
+        color: chocolate;
+    }
+
+    .cart__item:first-child {
+        border-top: 1px solid rgba(0, 0, 0, 0.3);
+    }
+
+    .cart__item:last-child {
+        border-bottom: none;
+    }
+
+    .cart__item-img {
+        width: 100px;
+        height: 100px;
+        margin-right: 10px;
+    }
+
+    .cart__item-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .cart__item--about {
+        display: flex;
+        align-items: center;
+    }
+
+    .cart__item--about-info {
+        width: 700px;
+        padding: 0 60px 0 20px;
+    }
+
+    .cart__item--about-info-name {
+        font-size: 20px;
+        font-weight: bold;
+        margin: 0 0 10px 0;
+        overflow: hidden;
+        display: block;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 1;
+    }
+
+    .cart__item--about-info-price {
+        margin: 5px 0 10px 0;
+    }
+
+    .cart__item--about-info-quantity-wrap {
+        margin-top: 15px;
+        margin-left: 10px
+    }
+
+    .cart__item--about-info-quantity-wrap span {
+        padding: 5px;
+    }
+
+    .cart__item--about-info-quantity-wrap span i {
+        color: chocolate;
+        cursor: pointer;
+    }
+
+    .cart__item--about-info-quantity-wrap span i:hover {
+        color: coral;
+    }
+
+    /* .cart__item--about-pay {
+    } */
+    .cart__item--about-pay-total {
+        font-size: 20px;
+        margin-bottom: 20px;
+        color: chocolate;
+    }
+
+    .cart__item--about-pay-btn {
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        background-color: coral;
+        color: white;
+        font-size: 14px;
+        font-weight: bold;
+        cursor: pointer;
+
+    }
+
+    .cart__item--about-pay-btn:hover {
+        background-color: chocolate;
+        color: grey;
+    }
+
+    .amount {
+        display: flex;
+        align-items: center;
+        justify-content: left;
+        margin: 5px 0;
+    }
+
+    .value-button {
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
+        text-align: center;
+        cursor: pointer;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin: 0 5px;
+    }
+
+    .value-button:hover {
+        background-color: #f0f0f0;
+    }
+
+    #number {
+        width: 50px;
+        height: 30px;
+        text-align: center;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+</style>
+
+<div class="wide grid">
+    <div id="cart pagination" style="display: block; margin-bottom:150px">
+        <div class="cart-wrap" style="width: 100%">
+            <h1 class="cart--header">GIỎ HÀNG CỦA BẠN</h1>
+
+            {{#unless cartInfo }}
+            <img src="/img/no-cart.png" style="width:40%; margin: 0 300px;" alt="">
+            <p style="text-align: center; font-size: 1.5rem;">Bạn chưa thêm sản phẩm vào giỏ hàng</p>
+            {{/unless}}
+            <div class="cart__list">
+                <form action="/cart/order" method="post">
+                    {{#if cartInfo }}
+                    <div class="form-group">
+                        <label for="name">Tên</label>
+                        <input required type="text" class="form-control" id="name" name="name" placeholder="Enter name">
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Số điện thoại</label>
+                        <input required type="text" pattern="[0-9]*" class="form-control" id="phone" name="phone"
+                            placeholder="Enter name">
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Địa chỉ</label>
+                        <input required type="text" class="form-control" id="address" name="address"
+                            placeholder="Enter name">
+                    </div>
+                    {{/if}}
+                    {{#each cartInfo}}
+                    <!-- Hiển thị thông tin của từng sản phẩm -->
+                    <!-- Lặp qua từng sản phẩm trong giỏ hàng -->
+                    <div class="cart__item">
+                        <!-- Mã HTML hiển thị sản phẩm -->
+                        <!-- Thêm các class và id cần thiết -->
+                        <div class="cart__item-img">
+                            <img src="/uploads/{{image}}" alt="">
+                        </div>
+                        <div class="cart__item--about">
+                            <div class="cart__item--about-info">
+                                <div id="cartVd" class="cart__item--about-info-name">{{name}}</div>
+                                <div class="cart__item--about-info-quantity-wrap">
+                                    <span id="cart-minus"><i class="fa-solid fa-minus"></i></span>
+                                    <span class="cart__item--about-info-quantity" name="soluong">{{amount}} Cái</span>
+                                    <span id="cart-plus"><i class="fa-solid fa-plus"></i></span>
+                                
+                                    <a href="/cart/{{_id}}/removeFromCart" class="cart-remove-link">Xóa</a>
+                                </div>
+                            </div>
+                            <div class="cart__item--about-pay">
+                                <div class="cart__item--about-pay-total formattedPrice" name="gia">{{price}} </div>VNĐ
+                            </div>
+                        </div>
+                        <div class="cart__close" style="text-decoration: none; color: var(--primary-color);">
+
+                        </div>
+                    </div>
+                    {{/each}}
+
+
+
+            </div>
+            <div style="{{#unless cartInfo}}display: none;{{/unless}}">
+                <div class="cart__item--about-info-name gia" style="line-height:30px;"> Giá tổng:
+                    <span style=" font-size:20px; color: var(--primary-color);"> VNĐ</span>
+                </div>
+                <input type="hidden" name="totalprice">
+                <button class="buyall-btn">Đặt hàng</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Lấy tất cả các phần tử có class là "formattedPrice" (giá của từng sản phẩm)
+    
+    const prices = document.querySelectorAll('.formattedPrice');
+
+    // Khởi tạo biến để lưu giá tổng
+    let totalPrice = 0;
+
+    // Lặp qua từng giá sản phẩm và tính tổng
+    prices.forEach(price => {
+        // Lấy giá của sản phẩm từ innerText của thẻ
+        const priceValue = parseFloat(price.innerText);
+        // Lấy số lượng của sản phẩm từ innerText của thẻ
+        const quantityValue = parseFloat(price.closest('.cart__item').querySelector('.cart__item--about-info-quantity').innerText);
+
+        // Tính tổng giá của từng sản phẩm và cộng vào giá tổng
+        totalPrice += priceValue * quantityValue;
+    });
+
+    // Hiển thị giá tổng trên trang
+    document.querySelector('.gia').textContent = `Giá tổng: ${totalPrice.toLocaleString()} VNĐ`;
+
+    // Gán giá trị giá tổng vào input hidden có name là "totalprice"
+    document.querySelector('input[name="totalprice"]').value = totalPrice;
+
+
+    
+
+</script>

@@ -1,0 +1,249 @@
+<header class="header">
+    <div class="grid wide">
+        <nav class="header__navbar hide-on-mobile-tablet">
+            <ul class="header__navbar-list">
+                <li class="header__navbar-item header__navbar-item--has-qr header__navbar-item--border">
+                    Mở ứng dụng để mua sắm tiện lợi hơn
+                    <div class="header__qr">
+                        <img src="/img/qr_code_clb.png" alt="" class="header__qr-img">
+                        <div class="header__qr-apps">
+                            <a href="" class="header__qr-apps-link">
+                                <img src="/img/ggplay.png" alt="" class="header__qr-apps-img">
+                            </a>
+                            <a href="" class="header__qr-apps-link">
+                                <img src="/img/appstore.png" alt="" class="header__qr-apps-img">
+                            </a>
+                        </div>
+                    </div>
+                </li>
+                <li class="header__navbar-item ">
+                    <span class="header__navbar-title--no-pointer">Kết nối</span>
+                    <a href="" class="header__navbar-icon-link"><i
+                            class="header__navbar-icon fa-brands fa-facebook"></i></a>
+                    <a href="" class="header__navbar-icon-link"><i
+                            class="header__navbar-icon fa-brands fa-instagram"></i></a>
+                </li>
+            </ul>
+            <ul class="header__navbar-list">
+                <li class="header__navbar-item header__navbar-item--has-notify">
+                    <a href="" class="header__navbar-item-link">
+                        <i class="header__navbar-icon fa-regular fa-bell"></i>
+                        Thông báo
+                    </a>
+                    <div class="header__notify">
+                        <header class="header__notify-header">
+                            <h3>Thông báo mới</h3>
+                        </header>
+                        <ul class="header__notify-list">
+                            <li class="header__notify-item">
+                                <a href="" class="header__notify-link">
+                                    <img src="https://cdn.sforum.vn/sforum/wp-content/uploads/2023/08/apple-event-2023-2.jpg"
+                                        alt="" class="header__notify-img">
+                                    <div class="header__notify-info">
+                                        <span class="header__notify-name">Iphone 15 pro max</span>
+                                        <span class="header__notify-description"> Đặt trước chỉ với 20.000.000
+                                            vnđ</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="header__notify-item">
+                                <a href="" class="header__notify-link">
+                                    <img src="https://cdn.sforum.vn/sforum/wp-content/uploads/2023/08/apple-event-2023-2.jpg"
+                                        alt="" class="header__notify-img">
+                                    <div class="header__notify-info">
+                                        <span class="header__notify-name">Iphone 15 pro max</span>
+                                        <span class="header__notify-description"> Đặt trước chỉ với 20.000.000
+                                            vnđ</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="header__notify-item">
+                                <a href="" class="header__notify-link">
+                                    <img src="https://cdn.sforum.vn/sforum/wp-content/uploads/2023/08/apple-event-2023-2.jpg"
+                                        alt="" class="header__notify-img">
+                                    <div class="header__notify-info">
+                                        <span class="header__notify-name">Iphone 15 pro max</span>
+                                        <span class="header__notify-description"> Đặt trước chỉ với 20.000.000
+                                            vnđ</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="header__notify-item header__notify-item--read">
+                                <a href="" class="header__notify-link">
+                                    <img src="https://cdn.sforum.vn/sforum/wp-content/uploads/2023/08/apple-event-2023-2.jpg"
+                                        alt="" class="header__notify-img">
+                                    <div class="header__notify-info">
+                                        <span class="header__notify-name">Iphone 15 pro max</span>
+                                        <span class="header__notify-description"> Đặt trước chỉ với 20.000.000
+                                            vnđ</span>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="header__notify-footer">
+                            <a href="" class="header__notify-footer-btn">Xem tất cả</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="header__navbar-item">
+                    <a href="" class="header__navbar-item-link">
+                        <i class="header__navbar-icon fa-regular fa-circle-question"></i>
+                        Trợ giúp</a>
+                </li>
+                <!-- <li class="header__navbar-item header__navbar-item--strong header__navbar-item--border">
+                            Đăng ký
+                        </li>
+                        <li class="header__navbar-item header__navbar-item--strong ">
+                            Đăng nhập
+                        </li> -->
+                <li class="header__navbar-item header__navbar-user">
+                    <img src="/img/user.jpg" alt="" class="header__navbar-user-img">
+                    <span class="header__navbar-user-name">{{userName}}</span>
+                    <ul class="header__navbar-user-menu">
+                        
+                        <li class="header__navbar-user-item" {{#if islogin}}style="display: none;"{{/if}}>
+                            <a href="#" id="log">Đăng nhập</a>
+                        </li>
+                        <li class="header__navbar-user-item" {{#unless islogin}}style="display: none;"{{/unless}}>
+                            <a href="/logout" id="log">Đăng xuất</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <div class="header-with-search">
+            <label for="mobile-search-checkbox" class="header__mobile-search-icon"><i
+                    class="fa-solid fa-magnifying-glass"></i></label>
+            <div class="header__logo hide-on-tablet">
+                <a href="/" class="header__logo-link">
+                    <img height="60px" src="/img/thaiconglogo.jpg" alt="">
+                </a>
+            </div>
+            <input type="checkbox" hidden id="mobile-search-checkbox" class="header__search-checkbox">
+            <label for="mobile-search-checkbox" class="modal__mobile-overlay"></label>
+            
+                <form action="/" class="header__search">
+                    <div class="header__search-input-warp">
+                        <input type="text" name="search" value="{{searchKeyword.search}}" class="header__search-input" placeholder="Tìm kiếm sản phẩm">
+                        <div class="header__search-history">
+                            <h3 class="header__search-history-heading">Lịch sử tìm Kiếm</h3>
+                            <ul class="header__search-history-list">
+                                <li class="header__search-history-item">
+                                    <a href="">Iphone 11</a>
+                                </li>
+                                <li class="header__search-history-item">
+                                    <a href="">Sạc dự phòng</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="header__search-selection">
+                        <span class="header__search-selection-label">Trong shop</span>
+                        <i class="header__search-selection-icon fa-solid fa-chevron-down"></i>
+                        <ul class="header__search-option">
+                            <li class="header__search-option-item header__search-option-item--active">
+                                <span>Trong shop</span>
+                                <i class="fas fa-check"></i>
+                            </li>
+                            <li class="header__search-option-item">
+                                <span>Ngoài shop</span>
+                                <i class="fas fa-check"></i>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="header__search-icon">
+                        <button style="width:99%; height:99%" type="submit" class="fa-solid fa-magnifying-glass"></button>
+                    </div>
+                </form>
+            
+            <div class="header__cart">
+                <div class="header__cart-wrap">
+                    <a href="/cart"><i class="header__cart-icon fa-solid fa-cart-shopping"></i></a>
+                    <!-- no cart : header__cart-list--no-cart -->
+                    {{!-- <span class="header__cart-notice">3</span>
+                    <div class="header__cart-list  ">
+                        <img src="/img/no-cart.png" alt="" class="header__cart-no-cart-img">
+                        <span class="header__cart-list--no-cart-msg">
+                            Chưa có sản phẩm
+                        </span>
+
+                        <h4 class="header__cart-heading">
+                            Sản phẩm đã thêm
+                        </h4>
+                        <ul class="header__cart-list-item">
+                            <li class="header__cart-item">
+                                <img src="https://cdn.tgdd.vn/Products/Images/42/281570/iphone-15-xanh-thumb-600x600.jpg"
+                                    alt="" class="header__cart-img">
+                                <div class="header__cart-item-info">
+                                    <div class="header__cart-item-head">
+                                        <h5 class="header__cart-item-name">iPhone 15 128GB | Chính hãng VN/A</h5>
+                                        <div class="header__cart-item-price-wrap">
+                                            <span class="header__cart-item-price">22.000.000đ</span>
+                                            <span class="header__cart-item-multiply">x</span>
+                                            <span class="header__cart-item-quantity">1</span>
+                                        </div>
+                                    </div>
+                                    <div class="header__cart-item-body">
+                                        <span class="header__cart-item-description">Phân loại: Xanh dương</span>
+                                        <span class="header__cart-item-remove">Xóa</span>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="header__cart-item">
+                                <img src="https://cdn.tgdd.vn/Products/Images/42/281570/iphone-15-xanh-thumb-600x600.jpg"
+                                    alt="" class="header__cart-img">
+                                <div class="header__cart-item-info">
+                                    <div class="header__cart-item-head">
+                                        <h5 class="header__cart-item-name">iPhone 15 128GB | Chính hãng VN/A</h5>
+                                        <div class="header__cart-item-price-wrap">
+                                            <span class="header__cart-item-price">22.000.000đ</span>
+                                            <span class="header__cart-item-multiply">x</span>
+                                            <span class="header__cart-item-quantity">1</span>
+                                        </div>
+                                    </div>
+                                    <div class="header__cart-item-body">
+                                        <span class="header__cart-item-description">Phân loại: Xanh dương</span>
+                                        <span class="header__cart-item-remove">Xóa</span>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="header__cart-item">
+                                <img src="https://cdn.tgdd.vn/Products/Images/42/281570/iphone-15-xanh-thumb-600x600.jpg"
+                                    alt="" class="header__cart-img">
+                                <div class="header__cart-item-info">
+                                    <div class="header__cart-item-head">
+                                        <h5 class="header__cart-item-name">iPhone 15 128GB | Chính hãng VN/A</h5>
+                                        <div class="header__cart-item-price-wrap">
+                                            <span class="header__cart-item-price">22.000.000đ</span>
+                                            <span class="header__cart-item-multiply">x</span>
+                                            <span class="header__cart-item-quantity">1</span>
+                                        </div>
+                                    </div>
+                                    <div class="header__cart-item-body">
+                                        <span class="header__cart-item-description">Phân loại: Xanh dương</span>
+                                        <span class="header__cart-item-remove">Xóa</span>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <a href="#" class="header__cart-view-cart btn btn--primary">Xem giỏ hàng</a>
+                    </div> --}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <ul class="header__sort-bar">
+        <li class="header__sort-item">
+            <a href="" class="header__sort-link">Phổ biến</a>
+        </li>
+        <li class="header__sort-item">
+            <a href="" class="header__sort-link">Mới nhất</a>
+        </li>
+        <li class="header__sort-item">
+            <a href="" class="header__sort-link">Bán chạy</a>
+        </li>
+        <li class="header__sort-item">
+            <a href="" class="header__sort-link">Giá</a>
+        </li>
+    </ul>
+</header>

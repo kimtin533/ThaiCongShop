@@ -1,0 +1,188 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+<style>
+    /* Reset CSS */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-size: 1.5rem;
+    }
+
+    /* CSS cho bảng */
+    .container {
+        margin: 20px auto;
+        width: 80%;
+    }
+
+    a {
+        list-style-type: none;
+        text-decoration: none;
+        color: #007bff;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 1.4rem;
+    }
+
+    th,
+    td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    tr:hover {
+        background-color: #f5f5f5;
+    }
+
+    td {
+        position: relative;
+    }
+
+    .form-control.show-hide-password {
+        display: inline-block;
+        vertical-align: middle;
+        /* Canh giữa theo chiều dọc */
+        width: calc(100% - 20px);
+        /* Đảm bảo rằng input chiếm phần lớn không gian trong td */
+    }
+
+    .fa.password {
+        position: absolute;
+        top: 50%;
+        right: 5px;
+        /* Điều chỉnh khoảng cách giữa biểu tượng và input */
+        transform: translateY(-50%);
+        cursor: pointer;
+    }
+</style>
+
+<div class="container">
+    <h1>Đơn hàng</h1>
+    <table>
+        <tbody>
+            <tr>
+                <th>STT</th>
+                <th>Mã đơn hàng</th>
+                <th>Tên tài khoản</th>
+                <th>Tên người nhận</th>
+                <th>Số điện thoại</th>
+                <th>Địa chỉ giao hàng</th>
+                <th>Ngày tạo đơn</th>
+                <th>Tình trạng</th>
+                <th>Tổng giá tiền</th>
+                <th></th>
+
+
+            </tr>
+            {{#each orders}}
+            <tr>
+                <td>
+                    {{sum @index 1}}
+                </td>
+                <td>{{this.generalId}}</td>
+                <td>{{this.user}}</td>
+                <td>{{this.name}}</td>
+                <td>{{this.phone}}</td>
+                <td>{{this.address}}</td>
+                <td>{{this.date}}</td>
+                <td>{{status this.status}} <a href="/admin/orders/{{this.generalId}}/comfirm">Xác nhận</a></td>
+                <td>
+                    {{this.price}}
+                </td>
+                <td>
+                    <a href="/admin/orders/{{this.generalId}}" type="button" class="btn btn-link">xem</a>
+                    <a type="button" class="btn btn-link" data-toggle="modal" data-id="{{this.generalId}}"
+                        data-target="#deleteProductModal">Xóa</a>
+                </td>
+            </tr>
+            {{!-- {{else}}
+            <tr>
+                <td colspan="3" class="text-center">
+                    Bạn chưa đăng sản phẩm nào. <a href="admin/products/create">Bấm để đăng sản phẩm mới</a>
+                </td>
+            </tr> --}}
+            {{/each}}
+        </tbody>
+    </table>
+    <form name="delete-user-form" method="POST">
+    </form>
+</div>
+<div id="deleteProductModal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Xóa đơn đặt hàng</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Bạn chắc chắn muốn xóa đơn đặt hàng này không ?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btn-delete-user" class="btn btn-danger">Xóa bỏ</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script>
+    var id
+    var deleteForm = document.forms['delete-user-form']
+    var btnDeleteProduct = document.getElementById('btn-delete-user')
+    document.addEventListener('DOMContentLoaded', function () {
+        $('#deleteProductModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget)
+            id = button.data('id')
+
+        })
+        btnDeleteProduct.onclick = function () {
+            deleteForm.action = '/admin/orders/' + id + '?_method=DELETE';
+            deleteForm.submit()
+
+        }
+        //checked all
+        var checkboxAll = $('#select-all')
+        var checkBoxItem = $('input[name="productIds[]"]')
+        checkboxAll.change(function () {
+            var isCheckedAll = $(this).prop('checked')
+            checkBoxItem.prop('checked', isCheckedAll)
+        })
+        checkBoxItem.change(function () {
+            var isCheckedAll = checkBoxItem.length === $('input[name="productIds[]"]:checked').length
+            checkboxAll.prop('checked', isCheckedAll)
+        })
+        //ẩn hiện mk
+
+        // Bắt sự kiện khi người dùng click vào biểu tượng con mắt
+
+        $('i.password').on('click', function () {
+            console.log('hiii1');
+            const targetInput = $(this).prev('.show-hide-password').attr('type');
+            if (targetInput === 'password') {
+                $(this).prev('.show-hide-password').attr('type', 'text');
+                $(this).removeClass('fa-eye-slash').addClass('fa-eye');
+                console.log('hiii');
+            } else if (targetInput === 'text') {
+                $(this).prev('.show-hide-password').attr('type', 'password');
+                $(this).addClass('fa-eye-slash').removeClass('fa-eye');
+                console.log('hiii');
+            }
+        });
+
+
+    })
+
+
+
+</script>

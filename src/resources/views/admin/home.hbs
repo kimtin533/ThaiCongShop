@@ -1,0 +1,144 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+<style>
+    /* Reset CSS */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-size: 1.5rem;
+    }
+
+    /* CSS cho bảng */
+    .container {
+        margin: 20px auto;
+        width: 80%;
+    }
+
+    a {
+        list-style-type: none;
+        text-decoration: none;
+        color: #007bff;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 1.4rem;
+    }
+
+    th,
+    td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    tr:hover {
+        background-color: #f5f5f5;
+    }
+</style>
+
+<div class="container">
+    <h1>Sản phẩm</h1>
+    <a href="/admin/products/trash">Thùng rác ({{detetedCount}})</a>
+    <div style="padding-bottom: 10px;">
+        <a style="border: black 1px solid;" type="button" class="btn btn-primary btn-lg"
+            href="admin/products/create">Thêm mới sản phẩm</a>
+    </div>
+    <table>
+        <tbody>
+            <tr>
+                <th>STT</th>
+                <th>Hình ảnh</th>
+                <th>Tên sản phẩm</th>
+                <th>Giá</th>
+                <th>Số lượng</th>
+                <th></th>
+
+            </tr>
+            {{#each products}}
+            <tr>
+                <td>
+                    {{sum @index 1}}
+                </td>
+                <td>
+                    <img src="/uploads/{{this.image}}" style="width: 80px;" alt="">
+                </td>
+                <td>{{this.name}}</td>
+                <td><span class="formattedPrice">{{this.price}}</span></td>
+                <td><span >{{this.amount}}</span></td>
+                <td>
+                    <a href="admin/products/{{this._id}}/edit" type="button" class="btn btn-link">Sửa</a>
+                    <a type="button" class="btn btn-link" data-toggle="modal" data-id="{{this._id}}"
+                        data-target="#deleteProductModal">Xóa</a>
+                </td>
+            </tr>
+            {{else}}
+            <tr>
+                <td colspan="3" class="text-center">
+                    Bạn chưa đăng sản phẩm nào. <a href="admin/products/create">Bấm để đăng sản phẩm mới</a>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+    <form name="delete-product-form" method="POST">
+    </form>
+</div>
+<div id="deleteProductModal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Xóa sản phẩm</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Bạn chắc chắn muốn xóa sản phẩm này không ??</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btn-delete-product" class="btn btn-danger">Xóa bỏ</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script>
+    var id
+    var deleteForm = document.forms['delete-product-form']
+    var btnDeleteProduct = document.getElementById('btn-delete-product')
+    document.addEventListener('DOMContentLoaded', function () {
+        $('#deleteProductModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget)
+            id = button.data('id')
+
+        })
+        btnDeleteProduct.onclick = function () {
+            deleteForm.action = '/admin/products/' + id + '?_method=DELETE';
+            deleteForm.submit()
+
+        }
+        //checked all
+        var checkboxAll=$('#select-all')
+        var checkBoxItem = $('input[name="productIds[]"]')
+        checkboxAll.change(function(){
+            var isCheckedAll = $(this).prop('checked')
+            checkBoxItem.prop('checked', isCheckedAll)
+        })
+        checkBoxItem.change(function(){
+            var isCheckedAll = checkBoxItem.length === $('input[name="productIds[]"]:checked').length
+            checkboxAll.prop('checked', isCheckedAll)
+        })
+    })
+
+
+
+</script>

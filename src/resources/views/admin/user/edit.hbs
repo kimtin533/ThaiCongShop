@@ -1,0 +1,31 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+        *{
+            font-size: 1.5rem;
+        }
+    </style>
+<div class="grid wide">
+    <h1>Cập nhật tài khoản</h1>
+    <form method="post" action="/admin/users/{{user._id}}?_method=PUT">
+        <div class="form-group">
+            <label for="username">Tài khoản</label>
+            <input required type="text" class="form-control" value="{{user.username}}" id="username" name="username" >
+        </div>
+        <div class="form-group">
+            <label for="display_name">Tên hiển thị</label>
+            <input required type="text" class="form-control" value="{{user.display_name}}" id="display_name" name="display_name" >
+        </div>
+        <div class="form-group">
+            <label for="password">Mật khẩu</label>
+            <input required type="text" class="form-control" value="{{user.password}}" id="password" name="password" >
+        </div>
+        <div class="form-group">
+            <label for="role">Loại tài khoản</label>
+            <select class="form-control" value="" id="role" name="role">
+                <option value="1">Thành viên</option>
+                <option value="0">Quản trị viên</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
