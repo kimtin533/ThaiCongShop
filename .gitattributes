@@ -1,3 +1,5 @@
 *.css linguist-vendored
-*.js linguist-detectable=true
-
+*.html linguist-vendored
+*.md linguist-vendored
+*.json linguist-vendored
+*.yml linguist-vendored
