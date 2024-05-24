@@ -1,6 +1,2 @@
-*.js linguist-detectable=true
-*.css linguist-detectable=true
-*.hbs linguist-detectable=true
-*.md linguist-detectable=true
-*.json linguist-detectable=true
-*.yml linguist-detectable=true
+*.css linguist-vendored
+
